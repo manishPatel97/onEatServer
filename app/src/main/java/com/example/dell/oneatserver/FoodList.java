@@ -13,12 +13,14 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.example.dell.oneatserver.Common.currentUser;
 import com.example.dell.oneatserver.Interface.ItemClickListener;
 import com.example.dell.oneatserver.Model.Category;
 import com.example.dell.oneatserver.Model.Food;
@@ -243,5 +245,119 @@ public class FoodList extends AppCompatActivity {
     public void onStop() {
         super.onStop();
         adapter.stopListening();
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        if(item.getTitle().equals(currentUser.update)){
+            showUpdateFoodDialog(adapter.getRef(item.getOrder()).getKey(),adapter.getItem(item.getOrder()));
+        }
+        else if(item.getTitle().equals(currentUser.delete)){
+            DeleteFoodCategory(adapter.getRef(item.getOrder()).getKey());
+        }
+        return super.onContextItemSelected(item);
+    }
+
+    private void showUpdateFoodDialog(final String key, final Food item) {
+        AlertDialog.Builder alertdialog = new AlertDialog.Builder(FoodList.this);
+        alertdialog.setTitle("Edit Food Menu");
+        alertdialog.setMessage("Please fill Details");
+
+        LayoutInflater inflater = this.getLayoutInflater();
+        View add_menu_layout = inflater.inflate(R.layout.add_new_food_layout,null);
+        //System.out.println("addMenu1 "+addMenu);
+        food_name =add_menu_layout.findViewById(R.id.foodname);
+        food_description =add_menu_layout.findViewById(R.id.Desciption);
+        food_price =add_menu_layout.findViewById(R.id.foodprice);
+        food_discount =add_menu_layout.findViewById(R.id.FoodDiscount);
+        food_name.setText(item.getName());
+        food_description.setText(item.getDescription());
+        food_price.setText(item.getPrice());
+        food_discount.setText(item.getDiscount());
+
+
+        btn_select_food = add_menu_layout.findViewById(R.id.btn_select_food);
+        // System.out.println("button3 "+btnSelect);
+        btn_upload_food = add_menu_layout.findViewById(R.id.btn_upload_food);
+        alertdialog.setView(add_menu_layout);
+        alertdialog.setIcon(R.drawable.ic_shopping_cart_black_24dp);
+        btn_select_food.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                chooseImage();
+            }
+        });
+        btn_upload_food.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeFoodImage(item);
+            }
+        });
+        alertdialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                if(item!=null){
+                    item.setName(food_name.getText().toString());
+                    item.setDescription(food_description.getText().toString());
+                    item.setPrice(food_price.getText().toString());
+                    item.setDiscount(food_discount.getText().toString());
+
+                    foodlist.child(key).setValue(item);
+                    Snackbar.make(rootlayout,"New Category "+item.getName()+" was edited",Snackbar.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+        alertdialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+
+            }
+        });
+        alertdialog.show();
+
+    }
+    private void DeleteFoodCategory(String key){
+        foodlist.child(key).removeValue();
+    }
+    private void changeFoodImage(final Food item) {
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Uploading..");
+        progressDialog.show();
+        String imageString = UUID.randomUUID().toString();
+        final StorageReference imagefolder = storageReference.child("image/"+imageString);
+        imagefolder.putFile(saveuri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        progressDialog.dismiss();
+                        Toast.makeText(FoodList.this,"Uploaded !!!",Toast.LENGTH_SHORT).show();
+                        imagefolder.getDownloadUrl()
+                                .addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+                                        item.setImage(uri.toString());
+                                    }
+                                });
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        progressDialog.dismiss();
+                        Toast.makeText(FoodList.this,""+e.getMessage(),Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                        double progress= (100*taskSnapshot.getBytesTransferred() /taskSnapshot.getTotalByteCount());
+                        progressDialog.setMessage("uploaded : "+progress+" %");
+                    }
+                });
+
     }
 }

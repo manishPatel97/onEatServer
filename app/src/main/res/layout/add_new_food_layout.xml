@@ -1,101 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardElevation="4dp">
-    <LinearLayout
-        android:layout_margin="20dp"
-        android:orientation="vertical"
+    >
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/foodname"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColorHint="@color/colorPrimary"
-            android:textSize="20sp"
-            android:hint="Enter your Food Category"
-            app:met_baseColor="#000000"
-            app:met_floatingLabel="highlight"
-            app:met_primaryColor="#ffffff"
-            app:met_singleLineEllipsis="true"
-            android:inputType="text"/>
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/Desciption"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColorHint="@color/colorPrimary"
-            android:textSize="20sp"
-            android:hint="Describe your Food"
-            app:met_baseColor="#000000"
-            app:met_floatingLabel="highlight"
-            app:met_primaryColor="#ffffff"
-            app:met_singleLineEllipsis="true"
-            android:inputType="text"/>
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/foodprice"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColorHint="@color/colorPrimary"
-            android:textSize="20sp"
-            android:hint="Enter Food Price"
-            app:met_baseColor="#000000"
-            app:met_floatingLabel="highlight"
-            app:met_primaryColor="#ffffff"
-            app:met_singleLineEllipsis="true"
-            android:inputType="number"/>
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/FoodDiscount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColorHint="@color/colorPrimary"
-            android:textSize="20sp"
-            android:hint="Enter Discount"
-            app:met_baseColor="#000000"
-            app:met_floatingLabel="highlight"
-            app:met_primaryColor="#ffffff"
-            app:met_singleLineEllipsis="true"
-            android:inputType="text"/>
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        app:cardElevation="4dp">
         <LinearLayout
-            android:weightSum="2"
-            android:orientation="horizontal"
+            android:layout_margin="16dp"
+            android:orientation="vertical"
             android:layout_width="match_parent"
+            android:scrollbars="vertical"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
             android:layout_height="wrap_content">
-            <info.hoang8f.widget.FButton
-                android:id="@+id/btn_select_food"
-                android:text="SELECT"
-                android:textColor="#FFFFFF"
-
-                android:layout_weight="1"
-                android:layout_width="0dp"
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/foodname"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                app:shadowColor="#000000"
-                app:fButtonColor="@color/fbutton_color_sun_flower"
-                app:shadowEnabled="true"
-                app:shadowHeight="5dp"
-                app:cornerRadius="10dp"/>
-            <info.hoang8f.widget.FButton
-                android:id="@+id/btn_upload_food"
-                android:text="Upload"
-                android:textColor="#FFFFFF"
-
-                android:layout_weight="1"
-                android:layout_width="0dp"
+                android:textColorHint="@color/colorPrimary"
+                android:textSize="18sp"
+                android:hint="Enter your Food Category"
+                app:met_baseColor="#000000"
+                app:met_floatingLabel="highlight"
+                app:met_primaryColor="#ffffff"
+                app:met_singleLineEllipsis="true"
+                android:inputType="text"/>
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/Desciption"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                app:shadowColor="#000000"
-                app:fButtonColor="@color/fbutton_color_sun_flower"
-                app:shadowEnabled="true"
-                app:shadowHeight="5dp"
-                app:cornerRadius="10dp"/>
+                android:textColorHint="@color/colorPrimary"
+                android:textSize="18sp"
+                android:hint="Describe your Food"
+                app:met_baseColor="#000000"
+                app:met_floatingLabel="highlight"
+                app:met_primaryColor="#ffffff"
+                app:met_singleLineEllipsis="true"
+                android:inputType="text"/>
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/foodprice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/colorPrimary"
+                android:textSize="18sp"
+                android:hint="Enter Food Price"
+                app:met_baseColor="#000000"
+                app:met_floatingLabel="highlight"
+                app:met_primaryColor="#ffffff"
+                app:met_singleLineEllipsis="true"
+                android:inputType="number"/>
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/FoodDiscount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/colorPrimary"
+                android:textSize="18sp"
+                android:hint="Enter Discount"
+                app:met_baseColor="#000000"
+                app:met_floatingLabel="highlight"
+                app:met_primaryColor="#ffffff"
+                app:met_singleLineEllipsis="true"
+                android:inputType="text"/>
+            <LinearLayout
+                android:weightSum="2"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <info.hoang8f.widget.FButton
+                    android:id="@+id/btn_select_food"
+                    android:text="SELECT"
+                    android:textColor="#FFFFFF"
 
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:shadowColor="#000000"
+                    app:fButtonColor="@color/fbutton_color_sun_flower"
+                    app:shadowEnabled="true"
+                    app:shadowHeight="5dp"
+                    app:cornerRadius="10dp"/>
+                <info.hoang8f.widget.FButton
+                    android:id="@+id/btn_upload_food"
+                    android:text="Upload"
+                    android:textColor="#FFFFFF"
+
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:shadowColor="#000000"
+                    app:fButtonColor="@color/fbutton_color_sun_flower"
+                    app:shadowEnabled="true"
+                    app:shadowHeight="5dp"
+                    app:cornerRadius="10dp"/>
+
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </android.support.v7.widget.CardView>
 
 
-</android.support.v7.widget.CardView>
+
+</ScrollView>
