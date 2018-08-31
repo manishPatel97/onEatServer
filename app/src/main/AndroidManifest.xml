@@ -44,7 +44,22 @@
 
         <activity
             android:name=".TrackingOrder"
-            android:label="@string/title_activity_tracking_order"></activity>
+            android:label="@string/title_activity_tracking_order" />
+
+
+        <activity android:name=".orderDetail"></activity>
+        <service android:name=".Service.myFirebaseIdService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"
+                    />
+            </intent-filter>
+        </service>
+        <service android:name=".Service.myFirebaseMessaging">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"
+                    />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

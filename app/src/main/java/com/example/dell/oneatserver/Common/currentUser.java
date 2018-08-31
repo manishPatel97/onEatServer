@@ -7,6 +7,8 @@ import android.graphics.Paint;
 
 import com.example.dell.oneatserver.Model.Request;
 import com.example.dell.oneatserver.Model.User;
+import com.example.dell.oneatserver.Remote.APIService;
+import com.example.dell.oneatserver.Remote.FCMRetrofitClient;
 import com.example.dell.oneatserver.Remote.IGeoCoordinates;
 import com.example.dell.oneatserver.Remote.RetrofitClient;
 
@@ -18,7 +20,14 @@ public class currentUser {
     public static int number;
     public static String update= "Update";
     public static String delete = "Delete";
+    public static final String USER_KEY ="User";
+    public static final String PWD_KEY = "Password";
     public static final String baseUrl= "https://maps.googleapis.com";
+    public static final String FCM_URL ="https://fcm.googleapis.com/";
+
+    public static APIService getFCMService(){
+        return FCMRetrofitClient.getClient(FCM_URL).create(APIService.class);
+    }
 
     public static final int PICK_IMAGE_REQUEST =71;
     public static String convertCodeToStatus(String status) {

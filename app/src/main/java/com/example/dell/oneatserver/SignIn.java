@@ -16,12 +16,19 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.rey.material.widget.CheckBox;
+
+
 import android.content.Intent;
+
+import io.paperdb.Paper;
+
 public class SignIn extends AppCompatActivity {
     EditText username,password;
     Button signin;
     FirebaseDatabase database;
     DatabaseReference users;
+    CheckBox chkBoxRemember;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,14 +37,22 @@ public class SignIn extends AppCompatActivity {
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
         signin = findViewById(R.id.signin);
+        chkBoxRemember = findViewById(R.id.chkboxRemember);
+        Paper.init(this);
         database = FirebaseDatabase.getInstance();
         users = database.getReference("User");
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(chkBoxRemember.isChecked()){
+                    Paper.book().write(currentUser.USER_KEY,username.getText().toString());
+                    Paper.book().write(currentUser.PWD_KEY,password.getText().toString());
+
+                }
                 signInUser(username.getText().toString(),password.getText().toString());
             }
         });
+
 
 
     }

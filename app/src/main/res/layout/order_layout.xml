@@ -7,56 +7,109 @@
     app:cardElevation="4dp"
     >
     <LinearLayout
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:orientation="horizontal"
-        android:layout_gravity="center_vertical"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
         <LinearLayout
-            android:orientation="vertical"
-            android:layout_weight="9"
-            android:layout_width="0dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/order_id"
-                android:layout_marginLeft="10dp"
-                android:layout_gravity="center_vertical|start"
-                android:textAllCaps="true"
-                android:textStyle="bold"
-                android:text="#11111"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/order_status"
-                android:layout_marginLeft="10dp"
-                android:layout_gravity="center_vertical|start"
-                android:textAllCaps="true"
-                android:textStyle="italic"
-                android:text="Status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/order_phone"
-                android:layout_marginLeft="10dp"
-                android:layout_gravity="center_vertical|start"
-                android:textAllCaps="true"
-                android:textStyle="italic"
-                android:text="#111111111"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/order_address"
-                android:layout_marginLeft="10dp"
-                android:layout_gravity="center_vertical|start"
-                android:textAllCaps="true"
-                android:textStyle="italic"
-                android:text="Address"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_weight="9"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/order_id"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center_vertical|start"
+                    android:textAllCaps="true"
+                    android:textStyle="bold"
+                    android:text="#11111"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/order_status"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center_vertical|start"
+                    android:textAllCaps="true"
+                    android:textStyle="italic"
+                    android:text="Status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/order_phone"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center_vertical|start"
+                    android:textAllCaps="true"
+                    android:textStyle="italic"
+                    android:text="#111111111"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/order_address"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center_vertical|start"
+                    android:textAllCaps="true"
+                    android:textStyle="italic"
+                    android:text="Address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+
         </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="4">
+            <info.hoang8f.widget.FButton
+                android:id="@+id/btnEdit"
+                android:text="Edit"
+                android:layout_weight="1"
+                android:layout_width="0dp"
 
+                app:cornerRadius="0dp"
+                app:fButtonColor="@android:color/white"
+                app:shadowColor="@android:color/white"
+                android:layout_height="wrap_content" />
+            <info.hoang8f.widget.FButton
+                android:id="@+id/btnRemove"
+                android:text="Remove"
+                android:layout_weight="1"
+                android:layout_width="0dp"
 
+                app:cornerRadius="0dp"
+                app:fButtonColor="@android:color/white"
+                app:shadowColor="@android:color/white"
+                android:layout_height="wrap_content" />
+            <info.hoang8f.widget.FButton
+                android:id="@+id/btndetail"
+                android:text="Detail"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+
+                app:cornerRadius="0dp"
+                app:fButtonColor="@android:color/white"
+                app:shadowColor="@android:color/white"
+                android:layout_height="wrap_content" />
+            <info.hoang8f.widget.FButton
+                android:id="@+id/btn_Direction"
+                android:text="Direction"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+
+                app:cornerRadius="0dp"
+                app:fButtonColor="@android:color/white"
+                app:shadowColor="@android:color/white"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
     </LinearLayout>
+
 
 </android.support.v7.widget.CardView>

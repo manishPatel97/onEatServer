@@ -29,14 +29,20 @@ import android.widget.Toast;
 import com.example.dell.oneatserver.Common.currentUser;
 import com.example.dell.oneatserver.Interface.ItemClickListener;
 import com.example.dell.oneatserver.Model.Category;
+import com.example.dell.oneatserver.Model.Token;
+
 import com.example.dell.oneatserver.ViewHolder.MenuViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -47,6 +53,7 @@ import com.squareup.picasso.Picasso;
 import java.util.UUID;
 
 import info.hoang8f.widget.FButton;
+import io.paperdb.Paper;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -74,6 +81,7 @@ public class Home extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle("Menu ");
+        Paper.init(this);
         database = FirebaseDatabase.getInstance();
         category = database.getReference("Category");
         storage =FirebaseStorage.getInstance();
@@ -106,6 +114,18 @@ public class Home extends AppCompatActivity
         layoutManager = new LinearLayoutManager(this);
         recycler_menu.setLayoutManager(layoutManager);
         loadMenu();
+        //Register Service
+
+        //send token
+        updateToken(FirebaseInstanceId.getInstance().getToken());
+
+    }
+
+    private void updateToken(String token) {
+        FirebaseDatabase db= FirebaseDatabase.getInstance();
+        DatabaseReference Tokens =db.getReference("Tokens");
+        Token data = new Token(token,true);
+        Tokens.child(currentUser.currentuser.getPhone()).setValue(data);//make userphone number as a key
 
     }
 
@@ -312,7 +332,27 @@ public class Home extends AppCompatActivity
     }
 
     private void DeleteCategory(String key) {
-        category.child(key).removeValue();
+
+        DatabaseReference food = database.getReference("Food");
+        System.out.println("Key : "+key);
+        Query foodCategory = food.orderByChild("menuid").equalTo(key);
+        foodCategory.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot postSnapShot:dataSnapshot.getChildren()){
+                    System.out.println("Hello world!!");
+                    System.out.println("postSnap Shot "+postSnapShot.getRef());
+
+                    postSnapShot.getRef().removeValue();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+       category.child(key).removeValue();
         Toast.makeText(this,"Item Deleted !!! ",Toast.LENGTH_SHORT).show();
     }
 
@@ -420,6 +460,7 @@ public class Home extends AppCompatActivity
             //startActivity(cartIntent);
 
         } else if (id == R.id.nav_logout) {
+            Paper.book().destroy();
             Intent logoutIntent = new Intent(Home.this,SignIn.class);
             logoutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(logoutIntent);
